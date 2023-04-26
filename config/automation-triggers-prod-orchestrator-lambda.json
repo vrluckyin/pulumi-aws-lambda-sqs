@@ -1,5 +1,9 @@
 {
-	"lambdaNames": ["arrival_instruction-orchestrator-lambda","booking_confirmation-orchestrator-lambda","request_review-orchestrator-lambda","guidebook-orchestrator-lambda","offer_stay_extension-orchestrator-lambda","checkout-orchestrator-lambda","others-orchestrator-lambda","arrival_instruction-automation-lambda","booking_confirmation-automation-lambda","request_review-automation-lambda","guidebook-automation-lambda","offer_stay_extension-automation-lambda","checkout-automation-lambda","others-automation-lambda"],
+	"lambdaNames": ["prod-automation-orchestrator-lambda","prod-arrival_instruction-orchestrator-lambda","prod-booking_confirmation-orchestrator-lambda","prod-request_review-orchestrator-lambda","prod-guidebook-orchestrator-lambda","prod-offer_stay_extension-orchestrator-lambda","prod-checkout-orchestrator-lambda","prod-others-orchestrator-lambda"],
+	"sqsNames":["prod-automation_orchestrator-queue","prod-arrival_instruction-orchestrator-queue","prod-booking_confirmation-orchestrator-queue","prod-request_review-orchestrator-queue","prod-guidebook-orchestrator-queue","prod-offer_stay_extension-orchestrator-queue","prod-checkout-orchestrator-queue","prod-others-orchestrator-queue"],
+	"lambdaNames2": ["prod-automation-orchestrator"],
+	"sqsNames2":["prod-automation_orchestrator-queue"],
+	"exactNamesProvided":true,
 	"env": "Prod",
 	"roleArn": "arn:aws:iam::988343836093:role/LambdaProd",
 	"tags":{

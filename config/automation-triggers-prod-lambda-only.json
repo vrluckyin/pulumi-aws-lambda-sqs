@@ -1,5 +1,8 @@
 {
-	"lambdaNames": ["automation_feeder-lambda"],
+	"lambdaNames": ["prod-automation_feeder-lambda"],
+	"sqsNames":["prod-automation_feeder-queue.fifo"],
+	"sqsDlq1Names":["prod-dlq1-automation_feeder-queue.fifo"],
+	"exactNamesProvided":true,
 	"env": "Prod",
 	"roleArn": "arn:aws:iam::988343836093:role/LambdaProd",
 	"tags":{

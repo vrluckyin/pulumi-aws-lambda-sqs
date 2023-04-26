@@ -2,9 +2,17 @@ import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
 import { GetValue } from "./getValue";
 
+interface NameConfig {
+  lambdaName: string;
+  sqsName: string | null;
+  dlq1Name: string | null;
+}
 //https://www.pulumi.com/registry/packages/aws/api-docs/lambda/function/
 export const create = async (config: {
   lambdaNames: string[];
+  sqsNames: string[];
+  sqsDlq1Names: string[];
+  exactNamesProvided: boolean;
   env: string;
   roleArn: string;
   tags: { [key: string]: string };
@@ -30,19 +38,38 @@ export const create = async (config: {
 }) => {
   //{lambdaName: string;lambdaUri: string;sqsName: string;sqsUri: string;}
   let result: any = [];
-  config.lambdaNames.forEach(async (lambdaName: string) => {
-    console.log(`Processing lambda: ${lambdaName} >>>>>>>>`);
+  config.lambdaNames.forEach(async (value: string, index: number) => {
+    let lambdaName: string = value;
+    console.log(`Processing item: ${lambdaName} >>>>>>>>`);
     lambdaName = lambdaName.toLowerCase();
+    const nameConfig: NameConfig = {
+      lambdaName: "",
+      sqsName: "",
+      dlq1Name: "",
+    };
+    nameConfig.lambdaName = config.exactNamesProvided
+      ? value
+      : `${config.env}-${lambdaName}`.toLowerCase();
 
-    const name = `${config.env}-${lambdaName}`.toLowerCase();
+    nameConfig.sqsName = config?.sqsNames ? config?.sqsNames[index] : null;
+    nameConfig.dlq1Name = config?.sqsDlq1Names
+      ? config?.sqsDlq1Names[index]
+      : null;
+
     config.tags["Env"] = config.env.toUpperCase();
 
-    const existingLambda = await getLambda(name);
+    console.log(`nameConfig >>>>>>>>`);
+    console.log(`lambdaName: ${nameConfig.lambdaName} >>>>>>>>`);
+    console.log(`sqsName: ${nameConfig.sqsName} >>>>>>>>`);
+    console.log(`dlq1Name: ${nameConfig.dlq1Name} >>>>>>>>`);
+    const existingLambda = await getLambda(nameConfig);
     let lambdaArn = existingLambda.arn;
+    console.log(`existingLambda: ${lambdaArn} >>>>>>>>`);
     let lambdaTriggerArn: string = "";
+
     if (!lambdaArn) {
       lambdaArn = await createLambda(
-        name,
+        nameConfig.lambdaName,
         config.roleArn,
         config.tags,
         config.vpc,
@@ -51,7 +78,7 @@ export const create = async (config: {
 
       if (config.lambdaConfig.invokeConfig) {
         await setLambdaEventInvokeConfig(
-          lambdaName.toLowerCase(),
+          nameConfig.lambdaName,
           config.lambdaConfig.invokeConfig
         );
       }
@@ -62,17 +89,21 @@ export const create = async (config: {
         config.env
       );
 
+      console.log(`======== ${lambdaName} Alias Lambda --> ${lambdaAliasArn}`);
+
       lambdaTriggerArn = config.isTriggerCreatedOnProdAlias
         ? lambdaAliasArn
         : lambdaArn;
     }
 
+    console.log(`======== ${lambdaName} Trigger Lambda--> ${lambdaTriggerArn}`);
     const queueResult = await createSqs(
       lambdaName,
       config.env,
       config.tags,
       config.sqsConfig,
-      false
+      false,
+      nameConfig
     );
 
     if (!config.skipCreatingTrigger) {
@@ -92,7 +123,8 @@ export const create = async (config: {
         config.env,
         config.tags,
         config.sqsConfig,
-        true
+        true,
+        nameConfig
       );
 
       if (!config.skipCreatingTrigger) {
@@ -109,6 +141,9 @@ export const create = async (config: {
 
     if (config.lambdaConfig.aliases && config.lambdaConfig.aliases.length > 0) {
       const nameShared = `shared-${lambdaName}`.toLowerCase();
+      nameConfig.lambdaName = nameShared;
+      nameConfig.sqsName = null;
+      nameConfig.dlq1Name = null;
       config.tags["Env"] = "SHARED";
       const lambdaSharedArn = await createLambda(
         nameShared,
@@ -141,7 +176,8 @@ export const create = async (config: {
           config.env,
           config.tags,
           config.sqsConfig,
-          false
+          false,
+          nameConfig
         );
 
         if (!config.skipCreatingTrigger) {
@@ -161,7 +197,8 @@ export const create = async (config: {
             config.env,
             config.tags,
             config.sqsConfig,
-            true
+            true,
+            nameConfig
           );
 
           if (!config.skipCreatingTrigger) {
@@ -255,10 +292,16 @@ const createFifoSqs = async (
     fifoQueue: boolean;
     visibilityTimeoutInSeconds: number;
     batchSize: number;
-  }
+  },
+  nameConfig: NameConfig
 ): Promise<{ arn: string; url: string }> => {
   let queueName = `${alias}-${lambdaName}.fifo`.replace("lambda", "queue");
   queueName = queueName.toLowerCase();
+
+  if (nameConfig.sqsName) {
+    queueName = nameConfig.sqsName;
+  }
+
   tags["name"] = queueName;
   tags["Service"] = "Queue";
   const queue = new aws.sqs.Queue(queueName, {
@@ -286,11 +329,15 @@ const createStandardSqs = async (
     fifoQueue: boolean;
     visibilityTimeoutInSeconds: number;
     batchSize: number;
-  }
+  },
+  nameConfig: NameConfig
 ): Promise<{ arn: string; url: string }> => {
   let queueName = `${alias}-${lambdaName}`.replace("lambda", "queue");
   queueName = queueName.toLowerCase();
 
+  if (nameConfig.sqsName) {
+    queueName = nameConfig.sqsName;
+  }
   tags["name"] = queueName;
   tags["Service"] = "Queue";
   const queue = new aws.sqs.Queue(queueName, {
@@ -317,7 +364,8 @@ const createSqs = async (
     visibilityTimeoutInSeconds: number;
     batchSize: number;
   },
-  dlqQueue: boolean
+  dlqQueue: boolean,
+  nameConfig: NameConfig
 ): Promise<{ sqsArn: string; sqsUrl: string }> => {
   let sqsArn: string = "";
   let sqsUrl: string = "";
@@ -326,6 +374,11 @@ const createSqs = async (
   let queueName = `${alias}-${dlqText}${lambdaName}`.replace("lambda", "queue");
   queueName = sqsConfig.fifoQueue ? queueName + ".fifo" : queueName;
   queueName = queueName.toLowerCase();
+
+  if (nameConfig.sqsName) {
+    queueName = nameConfig.sqsName;
+    sqsConfig.fifoQueue = nameConfig.sqsName.toLowerCase().endsWith(".fifo");
+  }
   const existingQueue = await getQueue(queueName);
   sqsArn = existingQueue.arn;
   sqsUrl = existingQueue.url;
@@ -333,13 +386,25 @@ const createSqs = async (
   if (!sqsArn) {
     console.log(`createSqs: ${queueName} does not exist, so creating it...`);
     if (sqsConfig?.fifoQueue) {
-      const data = await createFifoSqs(lambdaName, alias, tags, sqsConfig);
+      const data = await createFifoSqs(
+        lambdaName,
+        alias,
+        tags,
+        sqsConfig,
+        nameConfig
+      );
       sqsArn = data.arn;
       sqsUrl = data.url;
     }
 
     if ((sqsConfig?.fifoQueue || false) == false) {
-      const data = await createStandardSqs(lambdaName, alias, tags, sqsConfig);
+      const data = await createStandardSqs(
+        lambdaName,
+        alias,
+        tags,
+        sqsConfig,
+        nameConfig
+      );
       sqsArn = data.arn;
       sqsUrl = data.url;
     }
@@ -357,17 +422,17 @@ const createTrigger = async (
 ): Promise<string> => {
   const dlqText = dlqQueue ? "dlq-" : "";
   const name = `${alias}-${lambdaName}-${dlqText}trigger`;
+  console.log(`trigger ===========`);
+  console.log(`lambdaName: ${lambdaName}`);
+  console.log(`alias: ${alias}`);
+  console.log(`lambdaArn: ${lambdaArn}`);
+  console.log(`sqsArn: ${sqsArn}`);
   const lambdaSqsMapping = new aws.lambda.EventSourceMapping(name, {
     eventSourceArn: sqsArn,
     functionName: lambdaArn,
     batchSize: batchSize,
   });
   const id = await GetValue(lambdaSqsMapping.id);
-  console.log(`trigger ===========`);
-  console.log(`lambdaName: ${lambdaName}`);
-  console.log(`alias: ${alias}`);
-  console.log(`lambdaArn: ${lambdaArn}`);
-  console.log(`sqsArn: ${sqsArn}`);
   return id;
 };
 
@@ -394,7 +459,7 @@ const getQueue = async (name: string): Promise<aws.sqs.GetQueueResult> => {
 };
 
 const getLambda = async (
-  name: string
+  nameConfig: NameConfig
 ): Promise<aws.lambda.GetFunctionResult> => {
   let existing: aws.lambda.GetFunctionResult = {
     arn: "",
@@ -432,10 +497,12 @@ const getLambda = async (
 
   try {
     existing = await aws.lambda.getFunction({
-      functionName: name,
+      functionName: nameConfig.lambdaName,
     });
   } catch (error) {
-    console.log(`getLambda: Name: ${name} \r\n Warning: ${error}`);
+    console.log(
+      `getLambda: Name: ${nameConfig.lambdaName} \r\n Warning: ${error}`
+    );
   }
 
   return existing;
