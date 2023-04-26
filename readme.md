@@ -1,4 +1,4 @@
-aws lambda update-function-configuration --function-name prod-automation_feeder-lambda --timeout 300 --region us-east-1
+aws lambda update-function-configuration --timeout 300 --region us-east-1 --function-name prod-automation_feeder-lambda
 
 pulumi login <backend-url>
 pulumi stack init <<stack name as per your json file>>
