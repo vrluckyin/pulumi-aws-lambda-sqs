@@ -7,6 +7,19 @@ pulumi config set aws:region us-east-1
 pulumi up --stack <<stack name as per your json file>>
 
 Example:
+
+pulumi stack init automation-triggers-prod-lambda-only
+pulumi stack select automation-triggers-prod-lambda-only
+pulumi config set aws:region us-east-1
+pulumi up --stack automation-triggers-prod-lambda-only --yes
+pulumi destroy --stack automation-triggers-prod-lambda-only --yes
+
+pulumi stack init automation-triggers-prod-email-sms-lambda
+pulumi stack select automation-triggers-prod-email-sms-lambda
+pulumi config set aws:region us-east-1
+pulumi up --stack automation-triggers-prod-email-sms-lambda --yes
+pulumi destroy --stack automation-triggers-prod-email-sms-lambda --yes
+
 pulumi stack init automation-triggers-prod-feeder-lambda
 pulumi stack select automation-triggers-prod-feeder-lambda
 pulumi config set aws:region us-east-1
