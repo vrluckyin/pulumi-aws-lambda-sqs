@@ -1,0 +1,5 @@
+encryptionsalt: v1:uXQRLjj95p4=:v1:pn1l2V3WVcu4s3Mx:IWB3UGev0D0kFyZ2jiHWAJBepSACzQ==
+config:
+  aws:region: us-east-1
+backend:
+  url: "s3://lynx-pulumi-state/dev/?region=us-east-1&awssdk=v2"

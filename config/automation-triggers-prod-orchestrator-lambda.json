@@ -1,0 +1,24 @@
+{
+	"lambdaNames": ["arrival_instruction-orchestrator-lambda","booking_confirmation-orchestrator-lambda","request_review-orchestrator-lambda","guidebook-orchestrator-lambda","offer_stay_extension-orchestrator-lambda","checkout-orchestrator-lambda","others-orchestrator-lambda","arrival_instruction-automation-lambda","booking_confirmation-automation-lambda","request_review-automation-lambda","guidebook-automation-lambda","offer_stay_extension-automation-lambda","checkout-automation-lambda","others-automation-lambda"],
+	"env": "Prod",
+	"roleArn": "arn:aws:iam::988343836093:role/LambdaProd",
+	"tags":{
+	 	"Feature": "Automation and Triggers",
+      	"Sub-Feature": "Orchestrator"
+	},
+	"vpc": {
+		"id":"vpc-0cb57368",
+		"subnetIds":["subnet-0e6d1ebaa719110be"],
+		"securityGroupIds":["sg-dbf298a3"]
+	},
+	"lambdaConfig":{
+		"nodeRuntime": "nodejs14.x",
+		"memoryInMBs": 512,
+		"timeoutInSeconds": 30
+	},
+	"sqsConfig":{ 
+		"fifoQueue": true
+	},
+	"isTriggerCreatedOnProdAlias": true,
+	"dlqTrigger": false
+}

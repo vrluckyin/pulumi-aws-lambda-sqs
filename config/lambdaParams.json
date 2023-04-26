@@ -1,0 +1,20 @@
+{
+	"lambdaNames": ["api", "pankaj"],
+	"roleArn": "arn:aws:iam::981239111177:role/service-role/vipul-test-role-h2ttr67m",
+	"vpc": {
+		"id":"vpc-0badbd413bad49aba",
+		"subnetIds":["subnet-05a50e94b339ae773","subnet-02691ef0965eb6656"],
+		"securityGroupIds":["sg-0c820f744b3776970"]
+	},
+	"lambdaConfig":{
+		"nodeRuntime": "nodejs14.x",
+		"memoryInMBs": 128,
+		"timeoutInSeconds": 180,
+		"aliases": ["dev", "stag","preprod","prod"]
+	},
+	"sqsConfig":{ 
+		"fifoQueue": true,
+		"visibilityTimeoutInSeconds": 200,
+		"batchSize": 10
+	}
+}

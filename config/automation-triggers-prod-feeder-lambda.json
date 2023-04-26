@@ -1,0 +1,24 @@
+{
+	"lambdaNames": ["automation_feeder-lambda","automation_feeder-streamline-lambda","automation_feeder-cloudbeds-lambda","automation_feeder-stayntouch-lambda","automation_feeder-rns-lambda","automation_feeder-booking_automation-lambda","automation_feeder-lodgify-lambda","automation_feeder-hostfully-lambda","automation_feeder-guesty-lambda","automation_feeder-clock-lambda","automation_feeder-mews-lambda","automation_feeder-rdp-lambda","automation_feeder-direct-lambda","automation_feeder-fantastic-lambda","automation_feeder-vrm-lambda","automation_feeder-myvr-lambda","automation_feeder-igms-lambda","automation_feeder-ciirus-lambda","automation_feeder-escapia-lambda","automation_feeder-ownerrez-lambda","automation_feeder-hostaway-lambda","automation_feeder-lynx_api-lambda","automation_feeder-lynx_ui-lambda","automation_feeder-automation_api-lambda","automation_feeder_property-lambda","automation_feeder-realtime-lambda","automation_feeder-guest_app-realtime-lambda","automation_feeder-secondary_groups-lambda"],
+	"env": "Prod",
+	"roleArn": "arn:aws:iam::988343836093:role/LambdaProd",
+	"tags":{
+	 	"Feature": "Automation and Triggers",
+      	"Sub-Feature": "Feeder"
+	},
+	"vpc": {
+		"id":"vpc-0cb57368",
+		"subnetIds":["subnet-0e6d1ebaa719110be"],
+		"securityGroupIds":["sg-dbf298a3"]
+	},
+	"lambdaConfig":{
+		"nodeRuntime": "nodejs14.x",
+		"memoryInMBs": 512,
+		"timeoutInSeconds": 30
+	},
+	"sqsConfig":{ 
+		"fifoQueue": true
+	},
+	"isTriggerCreatedOnProdAlias": true,
+	"dlqTrigger": false
+}

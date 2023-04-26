@@ -1,0 +1,24 @@
+{
+	"lambdaNames": ["automation_feeder-lambda"],
+	"env": "Prod",
+	"roleArn": "arn:aws:iam::988343836093:role/LambdaProd",
+	"tags":{
+	 	"Feature": "Automation and Triggers",
+      	"Sub-Feature": "Feeder"
+	},
+	"vpc": {
+		"id":"vpc-0cb57368",
+		"subnetIds":["subnet-0e6d1ebaa719110be"],
+		"securityGroupIds":["sg-dbf298a3"]
+	},
+	"lambdaConfig":{
+		"nodeRuntime": "nodejs14.x",
+		"memoryInMBs": 512,
+		"timeoutInSeconds": 120
+	},
+	"sqsConfig":{ 
+		"fifoQueue": true
+	},
+	"isTriggerCreatedOnProdAlias": true,
+	"dlqTrigger": false
+}
