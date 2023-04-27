@@ -23,5 +23,8 @@
 		"fifoQueue": true,
 		"visibilityTimeoutInSeconds": 400,
 		"batchSize": 10
+	},
+	"sqsTriggerConfig":{ 
+		"batchSize": 1
 	}
 }

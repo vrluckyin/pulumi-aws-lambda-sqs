@@ -32,6 +32,9 @@ export const create = async (config: {
     visibilityTimeoutInSeconds: number;
     batchSize: number;
   };
+  sqsTriggerConfig: {
+    batchSize: number;
+  };
   isTriggerCreatedOnProdAlias: boolean;
   skipCreatingTrigger: boolean;
   dlqTrigger: boolean;
@@ -113,7 +116,7 @@ export const create = async (config: {
         false,
         lambdaTriggerArn,
         queueResult.sqsArn,
-        config?.sqsConfig?.batchSize || 10
+        config?.sqsTriggerConfig
       );
     }
 
@@ -134,7 +137,7 @@ export const create = async (config: {
           true,
           lambdaTriggerArn,
           dlq1Result.sqsArn,
-          config?.sqsConfig?.batchSize || 10
+          config?.sqsTriggerConfig
         );
       }
     }
@@ -187,7 +190,7 @@ export const create = async (config: {
             false,
             lambdaAliasArn,
             queueResult.sqsArn,
-            config?.sqsConfig?.batchSize || 10
+            config?.sqsTriggerConfig
           );
         }
 
@@ -208,7 +211,7 @@ export const create = async (config: {
               true,
               lambdaAliasArn,
               dlq1Result.sqsArn,
-              config?.sqsConfig?.batchSize || 10
+              config?.sqsTriggerConfig
             );
           }
         }
@@ -418,7 +421,9 @@ const createTrigger = async (
   dlqQueue: boolean,
   lambdaArn: string,
   sqsArn: string,
-  batchSize: number
+  sqsTriggerConfig: {
+    batchSize: number;
+  }
 ): Promise<string> => {
   const dlqText = dlqQueue ? "dlq-" : "";
   const name = `${alias}-${lambdaName}-${dlqText}trigger`;
@@ -430,7 +435,7 @@ const createTrigger = async (
   const lambdaSqsMapping = new aws.lambda.EventSourceMapping(name, {
     eventSourceArn: sqsArn,
     functionName: lambdaArn,
-    batchSize: batchSize,
+    batchSize: sqsTriggerConfig?.batchSize || 1,
   });
   const id = await GetValue(lambdaSqsMapping.id);
   return id;

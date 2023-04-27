@@ -22,6 +22,9 @@
 	"sqsConfig":{ 
 		"fifoQueue": true
 	},
+	"sqsTriggerConfig":{ 
+		"batchSize": 1
+	},
 	"isTriggerCreatedOnProdAlias": true,
 	"dlqTrigger": false
 }
