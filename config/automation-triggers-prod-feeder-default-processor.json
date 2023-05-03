@@ -1,0 +1,32 @@
+{
+	"lambdaNames": ["prod-automation_feeder-default-processor-high_priority","prod-automation_feeder-default-processor-medium_priority","prod-automation_feeder-default-processor-low_priority"],
+	"sqsNames":["prod-automation_feeder-default-processor-high_priority","prod-automation_feeder-default-processor-medium_priority","prod-automation_feeder-default-processor-low_priority"],
+	"lambdaNames1": ["prod-automation_feeder-default-processor-high_priority"],
+	"sqsNames1":["prod-automation_feeder-default-processor-high_priority"],
+	"exactNamesProvided":true,
+	"env": "Prod",
+	"roleArn": "arn:aws:iam::988343836093:role/LambdaProd",
+	"tags":{
+	 	"Feature": "Automation and Triggers",
+      	"Sub-Feature": "Default Processor"
+	},
+	"vpc": {
+		"id":"vpc-0cb57368",
+		"subnetIds":["subnet-0e6d1ebaa719110be"],
+		"securityGroupIds":["sg-dbf298a3"]
+	},
+	"lambdaConfig":{
+		"nodeRuntime": "nodejs14.x",
+		"memoryInMBs": 512,
+		"timeoutInSeconds": 30
+	},
+	"sqsConfig":{ 
+		"fifoQueue": false,
+		"visibilityTimeoutInSeconds": 30
+	},
+	"sqsTriggerConfig":{ 
+		"batchSize": 1
+	},
+	"isTriggerCreatedOnProdAlias": true,
+	"dlqTrigger": false
+}
