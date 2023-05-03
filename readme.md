@@ -23,6 +23,12 @@ pulumi config set aws:region us-east-1
 pulumi up --stack automation-triggers-prod-email-sms-lambda --yes
 pulumi destroy --stack automation-triggers-prod-email-sms-lambda --yes
 
+pulumi stack init automation-triggers-prod-feeder-default-processor
+pulumi stack select automation-triggers-prod-feeder-default-processor
+pulumi config set aws:region us-east-1
+pulumi up --stack automation-triggers-prod-feeder-default-processor --yes
+pulumi destroy --stack automation-triggers-prod-feeder-default-processor --yes
+
 pulumi stack init automation-triggers-prod-feeder-lambda
 pulumi stack select automation-triggers-prod-feeder-lambda
 pulumi config set aws:region us-east-1
@@ -42,9 +48,3 @@ pulumi stack select automation-triggers-prod-reservation-processor-lambda
 pulumi config set aws:region us-east-1
 pulumi up --stack automation-triggers-prod-reservation-processor-lambda --yes
 pulumi destroy --stack automation-triggers-prod-reservation-processor-lambda --yes
-
-pulumi stack init automation-triggers-prod-feeder-default-processor
-pulumi stack select automation-triggers-prod-feeder-default-processor
-pulumi config set aws:region us-east-1
-pulumi up --stack automation-triggers-prod-feeder-default-processor --yes
-pulumi destroy --stack automation-triggers-prod-feeder-default-processor --yes

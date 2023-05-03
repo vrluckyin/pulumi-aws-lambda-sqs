@@ -1,6 +1,7 @@
 {
 	"lambdaNames": ["prod-automation_feeder-default-processor-high_priority","prod-automation_feeder-default-processor-medium_priority","prod-automation_feeder-default-processor-low_priority"],
 	"sqsNames":["prod-automation_feeder-default-processor-high_priority","prod-automation_feeder-default-processor-medium_priority","prod-automation_feeder-default-processor-low_priority"],
+	"sqsDlq1Names":["prod-dlq1-automation_feeder-default-reservation_processor-high_priority-queue","prod-dlq1-automation_feeder-default-reservation_processor-medium_priority-queue","prod-dlq1-automation_feeder-default-reservation_processor-low_priority-queue"],
 	"lambdaNames1": ["prod-automation_feeder-default-processor-high_priority"],
 	"sqsNames1":["prod-automation_feeder-default-processor-high_priority"],
 	"exactNamesProvided":true,
@@ -28,5 +29,5 @@
 		"batchSize": 1
 	},
 	"isTriggerCreatedOnProdAlias": true,
-	"dlqTrigger": false
+	"dlqTrigger": true
 }

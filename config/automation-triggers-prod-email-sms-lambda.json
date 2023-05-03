@@ -1,6 +1,7 @@
 {
 	"lambdaNames": ["prod-arrival_instruction-automation","prod-booking_confirmation-automation","prod-request_review-automation","prod-guidebook-automation","prod-offer_stay_extension-automation","prod-checkout-automation","prod-others-automation"],
 	"sqsNames":["prod-arrival_instruction-automation-queue","prod-booking_confirmation-automation-queue","prod-request_review-automation-queue","prod-guidebook-automation-queue","prod-offer_stay_extension-automation-queue","prod-checkout-automation-queue","prod-others-automation-queue"],
+	"sqsDlq1Names":["prod-dlq1-arrival_instruction-automation-queue","prod-dlq1-booking_confirmation-automation-queue","prod-dlq1-request_review-automation-queue","prod-dlq1-guidebook-automation-queue","prod-dlq1-offer_stay_extension-automation-queue","prod-dlq1-checkout-automation-queue","prod-dlq1-others-automation-queue"],
 	"exactNamesProvided":true,
 	"env": "Prod",
 	"roleArn": "arn:aws:iam::988343836093:role/LambdaProd",
@@ -25,5 +26,5 @@
 		"batchSize": 1
 	},
 	"isTriggerCreatedOnProdAlias": true,
-	"dlqTrigger": false
+	"dlqTrigger": true
 }

@@ -1,6 +1,7 @@
 {
 	"lambdaNames": ["prod-automation-orchestrator-lambda","prod-arrival_instruction-orchestrator-lambda","prod-booking_confirmation-orchestrator-lambda","prod-request_review-orchestrator-lambda","prod-guidebook-orchestrator-lambda","prod-offer_stay_extension-orchestrator-lambda","prod-checkout-orchestrator-lambda","prod-others-orchestrator-lambda"],
 	"sqsNames":["prod-automation_orchestrator-queue","prod-arrival_instruction-orchestrator-queue","prod-booking_confirmation-orchestrator-queue","prod-request_review-orchestrator-queue","prod-guidebook-orchestrator-queue","prod-offer_stay_extension-orchestrator-queue","prod-checkout-orchestrator-queue","prod-others-orchestrator-queue"],
+	"sqsDlq1Names":["prod-dlq1-automation_orchestrator-queue","prod-dlq1-arrival_instruction-orchestrator-queue","prod-dlq1-booking_confirmation-orchestrator-queue","prod-dlq1-request_review-orchestrator-queue","prod-dlq1-guidebook-orchestrator-queue","prod-dlq1-offer_stay_extension-orchestrator-queue","prod-dlq1-checkout-orchestrator-queue","prod-dlq1-others-orchestrator-queue"],
 	"lambdaNames2": ["prod-automation-orchestrator"],
 	"sqsNames2":["prod-automation_orchestrator-queue"],
 	"exactNamesProvided":true,
@@ -27,5 +28,5 @@
 		"batchSize": 1
 	},
 	"isTriggerCreatedOnProdAlias": true,
-	"dlqTrigger": false
+	"dlqTrigger": true
 }

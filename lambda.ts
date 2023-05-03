@@ -378,10 +378,14 @@ const createSqs = async (
   queueName = sqsConfig.fifoQueue ? queueName + ".fifo" : queueName;
   queueName = queueName.toLowerCase();
 
-  if (nameConfig.sqsName) {
+  if (nameConfig.sqsName && !dlqQueue) {
     queueName = nameConfig.sqsName;
     sqsConfig.fifoQueue = nameConfig.sqsName.toLowerCase().endsWith(".fifo");
+  } else if (nameConfig.dlq1Name && dlqQueue) {
+    queueName = nameConfig.dlq1Name;
+    sqsConfig.fifoQueue = nameConfig.dlq1Name.toLowerCase().endsWith(".fifo");
   }
+
   const existingQueue = await getQueue(queueName);
   sqsArn = existingQueue.arn;
   sqsUrl = existingQueue.url;
@@ -426,7 +430,7 @@ const createTrigger = async (
   }
 ): Promise<string> => {
   const dlqText = dlqQueue ? "dlq-" : "";
-  const name = `${alias}-${lambdaName}-${dlqText}trigger`;
+  const name = `${alias}-${dlqText}${lambdaName}-trigger`;
   console.log(`trigger ===========`);
   console.log(`lambdaName: ${lambdaName}`);
   console.log(`alias: ${alias}`);
