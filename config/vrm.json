@@ -1,6 +1,6 @@
 {
-	"lambdaNames1": ["pms_sync-vrm-full-sync-lambda","pms_sync-vrm-range-sync-lambda","pms_sync-vrm-modified-sync-lambda","pms_sync-vrm-process-reservation-lambda","pms_sync-vrm-push-access-code-lambda","pms_sync-vrm-push-access-scheduler-lambda","pms_sync-vrm-sync-properties-lambda"],
-	"lambdaNames": ["pms_sync-vrm-full-sync-lambda"],
+	"lambdaNames": ["pms_sync-vrm-full-sync-lambda","pms_sync-vrm-range-sync-lambda","pms_sync-vrm-modified-sync-lambda","pms_sync-vrm-process-reservation-lambda","pms_sync-vrm-push-access-code-lambda","pms_sync-vrm-push-access-scheduler-lambda","pms_sync-vrm-sync-properties-lambda"],
+	"lambdaNames2": ["pms_sync-vrm-full-sync-lambda"],
 	"exactNamesProvided": false,
 	"env": "Prod",
 	"roleArn": "arn:aws:iam::988343836093:role/LambdaProd",
@@ -17,7 +17,7 @@
 		"nodeRuntime": "nodejs14.x",
 		"memoryInMBs": 512,
 		"timeoutInSeconds": 300,
-		"aliases": ["dev","stage"]
+		"aliases": ["Dev","Stage"]
 	},
 	"sqsConfig":{ 
 		"fifoQueue": true,

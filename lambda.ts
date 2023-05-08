@@ -151,7 +151,7 @@ export const create = async (config: {
       nameConfig.lambdaName = nameShared;
       nameConfig.sqsName = null;
       nameConfig.dlq1Name = null;
-      config.tags["Env"] = "stage".toUpperCase();
+      config.tags["Env"] = "Stage".toUpperCase();
       const lambdaSharedArn = await createLambda(
         nameShared,
         config.roleArn,
@@ -168,7 +168,6 @@ export const create = async (config: {
       }
 
       config.lambdaConfig.aliases.forEach(async (alias) => {
-        alias = alias.toLowerCase();
         console.log(`Processing alias: ${alias} >>>>>>>>`);
 
         const lambdaAliasArn = await createLambdaAlias(
@@ -376,7 +375,7 @@ const createSqs = async (
 ): Promise<{ sqsArn: string; sqsUrl: string }> => {
   let sqsArn: string = "";
   let sqsUrl: string = "";
-
+  alias = alias.toLowerCase();
   const dlqText = dlqQueue ? "dlq1-" : "";
   let queueName = `${alias}-${dlqText}${lambdaName}`.replace("lambda", "queue");
   queueName = sqsConfig.fifoQueue ? queueName + ".fifo" : queueName;
