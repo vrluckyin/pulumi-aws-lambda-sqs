@@ -17,6 +17,12 @@ pulumi config set aws:region us-east-1
 pulumi up --stack automation-triggers-prod-lambda-only --yes
 pulumi destroy --stack automation-triggers-prod-lambda-only --yes
 
+pulumi stack init vrm
+pulumi stack select vrm
+pulumi config set aws:region us-east-1
+pulumi up --stack vrm --yes
+pulumi destroy --stack vrm --yes
+
 pulumi stack init automation-triggers-prod-email-sms-lambda
 pulumi stack select automation-triggers-prod-email-sms-lambda
 pulumi config set aws:region us-east-1

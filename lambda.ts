@@ -120,7 +120,11 @@ export const create = async (config: {
       );
     }
 
-    if (config.dlqTrigger) {
+    if (
+      config.dlqTrigger &&
+      config?.sqsDlq1Names &&
+      nameConfig.dlq1Name != null
+    ) {
       const dlq1Result = await createSqs(
         lambdaName,
         config.env,
@@ -143,11 +147,11 @@ export const create = async (config: {
     }
 
     if (config.lambdaConfig.aliases && config.lambdaConfig.aliases.length > 0) {
-      const nameShared = `shared-${lambdaName}`.toLowerCase();
+      const nameShared = `stage-${lambdaName}`.toLowerCase();
       nameConfig.lambdaName = nameShared;
       nameConfig.sqsName = null;
       nameConfig.dlq1Name = null;
-      config.tags["Env"] = "SHARED";
+      config.tags["Env"] = "stage".toUpperCase();
       const lambdaSharedArn = await createLambda(
         nameShared,
         config.roleArn,
@@ -176,7 +180,7 @@ export const create = async (config: {
         config.tags["Env"] = alias.toUpperCase();
         const queueResult = await createSqs(
           lambdaName,
-          config.env,
+          alias,
           config.tags,
           config.sqsConfig,
           false,
@@ -186,7 +190,7 @@ export const create = async (config: {
         if (!config.skipCreatingTrigger) {
           await createTrigger(
             lambdaName,
-            config.env,
+            alias,
             false,
             lambdaAliasArn,
             queueResult.sqsArn,
@@ -197,7 +201,7 @@ export const create = async (config: {
         if (config.dlqTrigger) {
           const dlq1Result = await createSqs(
             lambdaName,
-            config.env,
+            alias,
             config.tags,
             config.sqsConfig,
             true,
@@ -207,7 +211,7 @@ export const create = async (config: {
           if (!config.skipCreatingTrigger) {
             await createTrigger(
               lambdaName,
-              config.env,
+              alias,
               true,
               lambdaAliasArn,
               dlq1Result.sqsArn,
