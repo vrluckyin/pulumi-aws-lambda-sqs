@@ -394,7 +394,8 @@ const createSqs = async (
   sqsUrl = existingQueue.url;
 
   if (!sqsArn) {
-    console.log(`createSqs: ${queueName} does not exist, so creating it...`);
+    nameConfig.sqsName = queueName;
+    console.log(`createSqs: ${queueName}, fifo: ${sqsConfig?.fifoQueue} does not exist, so creating it...`);
     if (sqsConfig?.fifoQueue) {
       const data = await createFifoSqs(
         lambdaName,

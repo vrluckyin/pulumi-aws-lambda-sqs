@@ -1,0 +1,34 @@
+{
+	"lambdaNames1": ["prod-automation_feeder-php-lambda"],
+	"sqsNames1":["prod-automation_feeder-php-queue.fifo"],
+	"sqsDlq1Names1":["prod-dlq1-automation_feeder-php-queue.fifo"],
+	"lambdaNames": ["prod-automation_feeder-php-lambda","prod-automation_feeder-escapia-lambda","prod-automation_feeder-ciirus-lambda","prod-automation_feeder-airbnb-lambda","prod-automation_feeder-vreasy-lambda","prod-automation_feeder-igms-lambda","prod-automation_feeder-homeaway-lambda","prod-automation_feeder-vrbo-lambda","prod-automation_feeder-ownerrez-lambda","prod-automation_feeder-hostaway-lambda","prod-automation_feeder-hospitable-lambda","prod-automation_feeder-uplisting-lambda"],
+	"sqsNames":["prod-automation_feeder-php-queue.fifo","prod-automation_feeder-escapia-queue.fifo","prod-automation_feeder-ciirus-queue.fifo","prod-automation_feeder-airbnb-queue.fifo","prod-automation_feeder-vreasy-queue.fifo","prod-automation_feeder-igms-queue.fifo","prod-automation_feeder-homeaway-queue.fifo","prod-automation_feeder-vrbo-queue.fifo","prod-automation_feeder-ownerrez-queue.fifo","prod-automation_feeder-hostaway-queue.fifo","prod-automation_feeder-hospitable-queue.fifo","prod-automation_feeder-uplisting-queue.fifo"],
+	"sqsDlq1Names":["prod-dlq1-automation_feeder-php-queue.fifo","prod-dlq1-automation_feeder-escapia-queue.fifo","prod-dlq1-automation_feeder-ciirus-queue.fifo","prod-dlq1-automation_feeder-airbnb-queue.fifo","prod-dlq1-automation_feeder-vreasy-queue.fifo","prod-dlq1-automation_feeder-igms-queue.fifo","prod-dlq1-automation_feeder-homeaway-queue.fifo","prod-dlq1-automation_feeder-vrbo-queue.fifo","prod-dlq1-automation_feeder-ownerrez-queue.fifo","prod-dlq1-automation_feeder-hostaway-queue.fifo","prod-dlq1-automation_feeder-hospitable-queue.fifo","prod-dlq1-automation_feeder-uplisting-queue.fifo"],
+	"exactNamesProvided":true,
+	"env": "Prod",
+	"roleArn": "arn:aws:iam::988343836093:role/LambdaProd",
+	"tags":{
+	 	"Feature": "Automation and Triggers",
+      	"Sub-Feature": "ical",
+		"Application": "Php"
+	},
+	"vpc": {
+		"id":"vpc-0cb57368",
+		"subnetIds":["subnet-0e6d1ebaa719110be"],
+		"securityGroupIds":["sg-dbf298a3"]
+	},
+	"lambdaConfig":{
+		"nodeRuntime": "nodejs14.x",
+		"memoryInMBs": 512,
+		"timeoutInSeconds": 30
+	},
+	"sqsConfig":{ 
+		"fifoQueue": true
+	},
+	"sqsTriggerConfig":{ 
+		"batchSize": 1
+	},
+	"isTriggerCreatedOnProdAlias": true,
+	"dlqTrigger": true
+}

@@ -9,12 +9,19 @@ pulumi up --stack <<stack name as per your json file>>
 
 Examples:
 
-pulumi login s3://lynx-pulumi-state/dev/?region=us-east-1&awssdk=v2
-pulumi stack init automation-triggers-prod-lambda-only
+pulumi login s3://lynx-pulumi-state/dev/?region=us-east-1&awssdk=v2 [One time only]
+pulumi stack init automation-triggers-prod-lambda-only [One time only]
 pulumi stack select automation-triggers-prod-lambda-only
-pulumi config set aws:region us-east-1
+pulumi config set aws:region us-east-1 [One time only]
 pulumi up --stack automation-triggers-prod-lambda-only --yes
 pulumi destroy --stack automation-triggers-prod-lambda-only --yes
+
+pulumi login s3://lynx-pulumi-state/dev/?region=us-east-1&awssdk=v2
+pulumi stack init automation-triggers-php 
+pulumi stack select automation-triggers-php
+pulumi config set aws:region us-east-1
+pulumi up --stack automation-triggers-php --yes
+pulumi destroy --stack automation-triggers-php --yes
 
 pulumi login s3://lynx-pulumi-state/dev/?region=us-east-1&awssdk=v2
 pulumi stack init vrm
