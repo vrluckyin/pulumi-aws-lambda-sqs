@@ -6,12 +6,14 @@ interface NameConfig {
   lambdaName: string;
   sqsName: string | null;
   dlq1Name: string | null;
+  dlq2Name: string | null;
 }
 //https://www.pulumi.com/registry/packages/aws/api-docs/lambda/function/
 export const create = async (config: {
   lambdaNames: string[];
   sqsNames: string[];
   sqsDlq1Names: string[];
+  sqsDlq2Names: string[];
   exactNamesProvided: boolean;
   env: string;
   roleArn: string;
@@ -49,6 +51,7 @@ export const create = async (config: {
       lambdaName: "",
       sqsName: "",
       dlq1Name: "",
+      dlq2Name: "",
     };
     nameConfig.lambdaName = config.exactNamesProvided
       ? value
@@ -57,6 +60,10 @@ export const create = async (config: {
     nameConfig.sqsName = config?.sqsNames ? config?.sqsNames[index] : null;
     nameConfig.dlq1Name = config?.sqsDlq1Names
       ? config?.sqsDlq1Names[index]
+      : null;
+
+    nameConfig.dlq2Name = config?.sqsDlq2Names
+      ? config?.sqsDlq2Names[index]
       : null;
 
     config.tags["Env"] = config.env.toUpperCase();
@@ -144,6 +151,22 @@ export const create = async (config: {
           config?.sqsTriggerConfig
         );
       }
+    }
+
+    if (
+      config.dlqTrigger &&
+      config?.sqsDlq2Names &&
+      nameConfig.dlq2Name != null
+    ) {
+      nameConfig.dlq1Name = nameConfig.dlq2Name;
+      const dlq2Result = await createSqs(
+        lambdaName,
+        config.env,
+        config.tags,
+        config.sqsConfig,
+        true,
+        nameConfig
+      );
     }
 
     if (config.lambdaConfig.aliases && config.lambdaConfig.aliases.length > 0) {

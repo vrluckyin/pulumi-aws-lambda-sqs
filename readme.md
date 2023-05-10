@@ -17,6 +17,13 @@ pulumi up --stack automation-triggers-prod-lambda-only --yes
 pulumi destroy --stack automation-triggers-prod-lambda-only --yes
 
 pulumi login s3://lynx-pulumi-state/dev/?region=us-east-1&awssdk=v2
+pulumi stack init automation-triggers-default-processor-new
+pulumi stack select automation-triggers-default-processor-new
+pulumi config set aws:region us-east-1
+pulumi up --stack automation-triggers-default-processor-new --yes
+pulumi destroy --stack automation-triggers-default-processor-new --yes
+
+pulumi login s3://lynx-pulumi-state/dev/?region=us-east-1&awssdk=v2
 pulumi stack init automation-triggers-php 
 pulumi stack select automation-triggers-php
 pulumi config set aws:region us-east-1
