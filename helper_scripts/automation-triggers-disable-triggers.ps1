@@ -1,10 +1,14 @@
 $lambdas = @(
-  'prod-arrival_instruction-automation'
-  'prod-booking_confirmation-automation'
+  'prod-messaging-scheduler-step1-lambda'
+  'prod-messaging-scheduler-step2-lambda'
+  'prod-messaging-scheduler-step3-lambda'
+  'prod-messaging-scheduler-step4-lambda'
+  'prod-messaging-scheduler-step5-lambda'
 )
 
-$tag = 'Prod'
-$isDebugMode = $false
+#$tag = 'Prod'
+$tag = ''
+$isDebugMode = $true
 # For disable
 #$enabledDisabledState = 'Disabled'
 
@@ -38,8 +42,8 @@ Foreach ($lambda in $lambdas) {
     $eventSourceArn = $eventSourceMapping.EventSourceArn;
     $state = $eventSourceMapping.State
     if ($isDebugMode) {
-      Write-Host "update-event-source-mapping of ${eventSourceArn} `n"
-      $update_event_source_mapping = ">>>> aws lambda update-event-source-mapping --region us-east-1 ${enabledDisabledOption} --uuid ""${uuid}"""
+      Write-Host "UPDATE | ${eventSourceArn} from ${lambda} >>>>>>>>>>>>>>>> `n"
+      $update_event_source_mapping = "aws lambda update-event-source-mapping --region us-east-1 ${enabledDisabledOption} --uuid ""${uuid}"""
       Write-Host $update_event_source_mapping "`n"
     }
     else {
