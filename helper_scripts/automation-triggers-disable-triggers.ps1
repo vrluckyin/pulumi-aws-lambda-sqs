@@ -111,12 +111,11 @@ $lambdas = @(
   "prod-automation_feeder-escapia-processor-low_priority"
   "prod-automation_feeder-ownerrez-processor-low_priority"
   "prod-automation_feeder-hostaway-processor-low_priority"
-
 )
 
 $tag = 'Prod'
 #$tag = ''
-$isDebugMode = $false
+$isDebugMode = $true
 # For disable
 $enabledDisabledState = 'Disabled'
 
@@ -148,6 +147,13 @@ Foreach ($lambda in $lambdas) {
   Foreach ($eventSourceMapping in $mapping.EventSourceMappings) {
     $uuid = $eventSourceMapping.UUID;
     $eventSourceArn = $eventSourceMapping.EventSourceArn;
+
+    $eventSourceArnParths =$eventSourceArn.Split(":")
+    $sqsUrl = $eventSourceArnParths[5]
+
+    $get_event_attributes = "QQQQQ: aws sqs get-queue-attributes --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/${sqsUrl} --attribute-names VisibilityTimeout ApproximateNumberOfMessages ApproximateNumberOfMessagesNotVisible ApproximateNumberOfMessagesDelayed"
+    Write-Host $get_event_attributes "`n"
+
     $state = $eventSourceMapping.State
     if ($isDebugMode) {
       Write-Host "UPDATE | ${eventSourceArn} from ${lambda} >>>>>>>>>>>>>>>> `n"
