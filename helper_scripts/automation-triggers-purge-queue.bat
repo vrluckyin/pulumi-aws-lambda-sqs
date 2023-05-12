@@ -446,3 +446,27 @@ call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.am
 
 call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-dlq1-automation_feeder-hostaway-reservation_processor-low_priority-queue
 
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-automation_feeder-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-automation_feeder-escapia-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-automation_feeder-ciirus-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-automation_feeder-airbnb-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-automation_feeder-vreasy-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-automation_feeder-igms-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-automation_feeder-homeaway-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-automation_feeder-vrbo-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-automation_feeder-ownerrez-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-automation_feeder-hostaway-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-automation_feeder-hospitable-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-automation_feeder-uplisting-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-dlq1-automation_feeder-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-dlq1-automation_feeder-escapia-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-dlq1-automation_feeder-ciirus-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-dlq1-automation_feeder-airbnb-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-dlq1-automation_feeder-vreasy-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-dlq1-automation_feeder-igms-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-dlq1-automation_feeder-homeaway-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-dlq1-automation_feeder-vrbo-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-dlq1-automation_feeder-ownerrez-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-dlq1-automation_feeder-hostaway-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-dlq1-automation_feeder-hospitable-php-queue.fifo
+call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-dlq1-automation_feeder-uplisting-php-queue.fifo
