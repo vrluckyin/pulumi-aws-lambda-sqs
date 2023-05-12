@@ -111,6 +111,18 @@ $lambdas = @(
   "prod-automation_feeder-escapia-processor-low_priority"
   "prod-automation_feeder-ownerrez-processor-low_priority"
   "prod-automation_feeder-hostaway-processor-low_priority"
+  "prod-automation_feeder-php-lambda"
+  "prod-automation_feeder-escapia-php-lambda"
+  "prod-automation_feeder-ciirus-php-lambda"
+  "prod-automation_feeder-airbnb-php-lambda"
+  "prod-automation_feeder-vreasy-php-lambda"
+  "prod-automation_feeder-igms-php-lambda"
+  "prod-automation_feeder-homeaway-php-lambda"
+  "prod-automation_feeder-vrbo-php-lambda"
+  "prod-automation_feeder-ownerrez-php-lambda"
+  "prod-automation_feeder-hostaway-php-lambda"
+  "prod-automation_feeder-hospitable-php-lambda"
+  "prod-automation_feeder-uplisting-php-lambda"
 )
 
 $tag = 'Prod'
