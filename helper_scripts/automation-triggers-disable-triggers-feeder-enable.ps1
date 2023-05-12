@@ -109,12 +109,12 @@ $lambdas = @(
 
 $tag = 'Prod'
 #$tag = ''
-$isDebugMode = $true
+$isDebugMode = $false
 # For disable
-$enabledDisabledState = 'Disabled'
+#$enabledDisabledState = 'Disabled'
 
 #For Enable
-#$enabledDisabledState = 'Enabled'
+$enabledDisabledState = 'Enabled'
 
 $enabledDisabledOption = '--enabled'
 
@@ -126,27 +126,27 @@ Foreach ($lambda in $lambdas) {
     $arn = "${arn}:${tag}"
   }
   
-  Write-Host $arn "----------`n"
+  #Write-Host $arn "----------`n"
  
   if ($isDebugMode) {
-    Write-Host ">>>> list-event-source-mappings of ${lambda} `n"
-    $list_event_source_mappings = "aws lambda list-event-source-mappings --region us-east-1 --function-name ${arn}"
-    Write-Host $list_event_source_mappings "`n"
+    #Write-Host ">>>> list-event-source-mappings of ${lambda} `n"
+    #$list_event_source_mappings = "aws lambda list-event-source-mappings --region us-east-1 --function-name ${arn}"
+    #Write-Host $list_event_source_mappings "`n"
   }
   $mapping = aws lambda list-event-source-mappings --region us-east-1 --function-name ${arn} | ConvertFrom-Json
-  Write-Host "EventSourceMappings----------`n"
-  $mapping.EventSourceMappings
+  #Write-Host "EventSourceMappings----------`n"
+  #$mapping.EventSourceMappings
 
-  Write-Host "----------`n"
+  #Write-Host "----------`n"
   Foreach ($eventSourceMapping in $mapping.EventSourceMappings) {
     $uuid = $eventSourceMapping.UUID;
     $eventSourceArn = $eventSourceMapping.EventSourceArn;
 
-    $eventSourceArnParths =$eventSourceArn.Split(":")
-    $sqsUrl = $eventSourceArnParths[5]
+    #$eventSourceArnParths =$eventSourceArn.Split(":")
+    #$sqsUrl = $eventSourceArnParths[5]
 
-    $get_event_attributes = "QQQQQ: aws sqs get-queue-attributes --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/${sqsUrl} --attribute-names VisibilityTimeout ApproximateNumberOfMessages ApproximateNumberOfMessagesNotVisible ApproximateNumberOfMessagesDelayed"
-    Write-Host $get_event_attributes "`n"
+    #$get_event_attributes = "QQQQQ: aws sqs get-queue-attributes --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/${sqsUrl} --attribute-names VisibilityTimeout ApproximateNumberOfMessages ApproximateNumberOfMessagesNotVisible ApproximateNumberOfMessagesDelayed"
+    #Write-Host $get_event_attributes "`n"
 
     $state = $eventSourceMapping.State
     if ($isDebugMode) {
@@ -155,7 +155,7 @@ Foreach ($lambda in $lambdas) {
       Write-Host $update_event_source_mapping "`n"
     }
     else {
-      Write-Host $enabledDisabledState ">>>>>>" $state
+      #Write-Host $enabledDisabledState ">>>>>>" $state
       if ($enabledDisabledState -eq $state) {
 
       }
@@ -177,7 +177,7 @@ Foreach ($lambda in $lambdas) {
         }
       }
     
-      Write-Host "----------`n"
+      #Write-Host "----------`n"
     }
   }
 }
