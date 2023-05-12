@@ -111,10 +111,10 @@ $tag = 'Prod'
 #$tag = ''
 $isDebugMode = $false
 # For disable
-#$enabledDisabledState = 'Disabled'
+$enabledDisabledState = 'Disabled'
 
 #For Enable
-$enabledDisabledState = 'Enabled'
+# $enabledDisabledState = 'Enabled'
 
 $enabledDisabledOption = '--enabled'
 
