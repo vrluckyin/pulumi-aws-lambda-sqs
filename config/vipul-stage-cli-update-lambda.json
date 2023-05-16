@@ -1,8 +1,8 @@
 {
-	"lambdaNames": ["stage-vipul-automation_feeder-lambda1","stage-vipul-automation_feeder-lambda2"],
-	"sqsNames": ["stage-vipul-automation_feeder-queue1","stage-vipul-automation_feeder-queue2"],
-	"lambdaNames1": ["stage-vipul-automation_feeder-lambda1","stage-vipul-automation_feeder-lambda2","stage-vipul-automation_feeder-lambda3","stage-vipul-automation_feeder-lambda4","stage-vipul-automation_feeder-lambda5"],
-	"sqsNames1": ["stage-vipul-automation_feeder-queue1","stage-vipul-automation_feeder-queue2","stage-vipul-automation_feeder-queue3","stage-vipul-automation_feeder-queue4","stage-vipul-automation_feeder-queue5"],
+	"lambdaNames1": ["stage-vipul-automation_feeder-lambda1","stage-vipul-automation_feeder-lambda2"],
+	"sqsNames1": ["stage-vipul-automation_feeder-queue1","stage-vipul-automation_feeder-queue2"],
+	"lambdaNames": ["stage-vipul-automation_feeder-lambda1","stage-vipul-automation_feeder-lambda2","stage-vipul-automation_feeder-lambda3","stage-vipul-automation_feeder-lambda4","stage-vipul-automation_feeder-lambda5"],
+	"sqsNames": ["stage-vipul-automation_feeder-queue1","stage-vipul-automation_feeder-queue2","stage-vipul-automation_feeder-queue3","stage-vipul-automation_feeder-queue4","stage-vipul-automation_feeder-queue5"],
 	"exactNamesProvided":true,
 	"env": "Stage",
 	"roleArn": "arn:aws:iam::988343836093:role/LambdaProd",
