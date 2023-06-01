@@ -7,9 +7,8 @@
 	"env": "Prod",
 	"roleArn": "arn:aws:iam::988343836093:role/LambdaProd",
 	"tags":{
-	 	"Feature": "Automation and Triggers",
-      	"Sub-Feature": "ical",
-		"Application": "Php"
+		"Feature": "Automation and Triggers",
+		"Sub-Feature": "Default Processor"
 	},
 	"vpc": {
 		"id":"vpc-0cb57368",
