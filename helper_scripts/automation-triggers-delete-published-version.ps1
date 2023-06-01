@@ -135,7 +135,7 @@ Foreach ($lambda in $lambdas) {
 
   $toBeDeletedVersions = If ($versionsInt.Count -gt $removeOldVersions+2) {$removeOldVersions} Else { if ($removeOldVersions -gt $versionsInt.Count) {1} else {0}}
 
-  if ($toBeDeletedVersions -gt 0 -and $versionsInt.Count -gt 1)
+  if ($toBeDeletedVersions -gt 0 -and $versionsInt.Count -gt 2)
   {
     $versionsToBeDeleted = $versionsInt | Sort-Object -Descending | Select-Object -Last $toBeDeletedVersions
 
