@@ -105,10 +105,26 @@ $lambdas = @(
   "prod-automation_feeder-hostaway-php-lambda"
   "prod-automation_feeder-hospitable-php-lambda"
   "prod-automation_feeder-uplisting-php-lambda"
+  "prod-automation-orchestrator-lambda"
+  "prod-arrival_instruction-orchestrator-lambda"
+  "prod-booking_confirmation-orchestrator-lambda"
+  "prod-request_review-orchestrator-lambda"
+  "prod-guidebook-orchestrator-lambda"
+  "prod-offer_stay_extension-orchestrator-lambda"
+  "prod-checkout-orchestrator-lambda"
+  "prod-others-orchestrator-lambda"
+  "prod-arrival_instruction-automation"
+  "prod-booking_confirmation-automation"
+  "prod-request_review-automation"
+  "prod-guidebook-automation"
+  "prod-offer_stay_extension-automation"
+  "prod-checkout-automation"
+  "prod-others-automation"
 )
 
 #$keepLastVersions = 3
 $removeOldVersions = 1
+$isDebug = $true
 
 Foreach ($lambda in $lambdas) {
 
@@ -121,35 +137,38 @@ Foreach ($lambda in $lambdas) {
   $cmd = "aws lambda list-versions-by-function --region us-east-1  --function-name ${lambda} --query 'Versions[].Version'"
   Write-Host ">>>> ${cmd} `n"
   $versions = aws lambda list-versions-by-function --region us-east-1  --function-name ${lambda} --query 'Versions[].Version' | ConvertFrom-Json
-  
+  $versions
   $versionsInt = New-Object System.Collections.Generic.List[int]
 
-  foreach($version in $versions)
+  if($isDebug -eq $false)
   {
-    if($version -eq '$LATEST')
+    foreach($version in $versions)
     {
-      continue;
-    }
-    $versionsInt.Add([int]$version);
-  }
-
-  $toBeDeletedVersions = If ($versionsInt.Count -gt $removeOldVersions+2) {$removeOldVersions} Else { if ($removeOldVersions -gt $versionsInt.Count) {1} else {0}}
-
-  if ($toBeDeletedVersions -gt 0 -and $versionsInt.Count -gt 2)
-  {
-    $versionsToBeDeleted = $versionsInt | Sort-Object -Descending | Select-Object -Last $toBeDeletedVersions
-
-    $versionsToBeDeleted
-
-    foreach($versionToBeDeleted in $versionsToBeDeleted)
-    {
-      $cmd = "aws lambda list-versions-by-function --region us-east-1  --function-name ${lambda} --qualifier ${versionToBeDeleted}"
-      Write-Host ">>>> ${cmd} `n"
-
-      aws lambda delete-function --region us-east-1  --function-name ${lambda} --qualifier ${versionToBeDeleted}
+      if($version -eq '$LATEST')
+      {
+        continue;
+      }
+      $versionsInt.Add([int]$version);
     }
 
-    
+    $toBeDeletedVersions = If ($versionsInt.Count -gt $removeOldVersions+2) {$removeOldVersions} Else { if ($removeOldVersions -gt $versionsInt.Count) {1} else {0}}
+
+    if ($toBeDeletedVersions -gt 0 -and $versionsInt.Count -gt 2)
+    {
+      $versionsToBeDeleted = $versionsInt | Sort-Object -Descending | Select-Object -Last $toBeDeletedVersions
+
+      $versionsToBeDeleted
+
+      foreach($versionToBeDeleted in $versionsToBeDeleted)
+      {
+        $cmd = "aws lambda list-versions-by-function --region us-east-1  --function-name ${lambda} --qualifier ${versionToBeDeleted}"
+        Write-Host ">>>> ${cmd} `n"
+
+        aws lambda delete-function --region us-east-1  --function-name ${lambda} --qualifier ${versionToBeDeleted}
+      }
+
+      
+    }
   }
   
 }
