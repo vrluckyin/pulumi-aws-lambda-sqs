@@ -27,21 +27,6 @@ $lambdas = @(
 "stage-automation_feeder-realtime-lambda"
 "stage-automation_feeder-guest_app-realtime-lambda"
 "stage-automation_feeder-secondary_groups-lambda"
-"stage-automation-orchestrator"
-"stage-arrival_instruction-orchestrator-lambda"
-"stage-booking_confirmation-orchestrator-lambda"
-"stage-request_review-orchestrator-lambda"
-"stage-guidebook-orchestrator-lambda"
-"stage-offer_stay_extension-orchestrator-lambda"
-"stage-checkout-orchestrator-lambda"
-"stage-others-orchestrator-lambda"
-"stage-arrival_instruction-automation"
-"stage-booking_confirmation-automation"
-"stage-request_review-automation"
-"stage-guidebook-automation"
-"stage-offer_stay_extension-automation"
-"stage-checkout-automation"
-"stage-others-automation"
 "stage-automation_feeder-processor-high_priority"
 "stage-automation_feeder-processor-medium_priority"
 "stage-automation_feeder-processor-low_priority"
@@ -109,11 +94,26 @@ $lambdas = @(
 "stage-automation_feeder-hostaway-processor-low_priority"
 "stage-automation_feeder-default-processor-low_priority"
 "stage_delete_group_automation_lambda"
+"stage-automation-orchestrator"
+"stage-arrival_instruction-orchestrator-lambda"
+"stage-booking_confirmation-orchestrator-lambda"
+"stage-request_review-orchestrator-lambda"
+"stage-guidebook-orchestrator-lambda"
+"stage-offer_stay_extension-orchestrator-lambda"
+"stage-checkout-orchestrator-lambda"
+"stage-others-orchestrator-lambda"
+"stage-arrival_instruction-automation"
+"stage-booking_confirmation-automation"
+"stage-request_review-automation"
+"stage-guidebook-automation"
+"stage-offer_stay_extension-automation"
+"stage-checkout-automation"
+"stage-others-automation"
 )
 
-$tag = 'Prod'
+$tag = ''
 #$tag = ''
-$isDebugMode = $true
+$isDebugMode = $false
 # For disable
 $enabledDisabledState = 'Disabled'
 
