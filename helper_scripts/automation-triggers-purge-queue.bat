@@ -18,12 +18,6 @@ call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.am
 call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-checkout-automation-queue
 call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-dlq1-others-automation-queue
 call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-others-automation-queue
-call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-dlq1-automation_feeder-default-reservation_processor-high_priority-queue
-call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-automation_feeder-default-processor-high_priority-queue
-call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-automation_feeder-default-processor-medium_priority-queue
-call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-dlq1-automation_feeder-default-reservation_processor-medium_priority-queue
-call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-automation_feeder-default-processor-low_priority-queue
-call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-dlq1-automation_feeder-default-reservation_processor-low_priority-queue
 call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-dlq1-automation_feeder-queue.fifo
 call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-automation_feeder-queue.fifo
 call aws sqs purge-queue --region us-east-1 --queue-url https://sqs.us-east-1.amazonaws.com/988343836093/prod-automation_feeder-streamline-queue.fifo
