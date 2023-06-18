@@ -123,7 +123,7 @@ $lambdas = @(
 )
 
 #$keepLastVersions = 3
-$removeOldVersions = 10
+$removeOldVersions = 5
 $isDebug = $false
 
 Foreach ($lambda in $lambdas) {
